@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portafolio | Joel Menendez</title>
+  <style>
+    :root {
+      --bg: #070b2a;
+      --bg2: #0b1140;
+      --card: #0e1650;
+      --borde: #1f2c8a;
+      --cian: #22d3ee;
+      --azul: #3b82f6;
+      --texto: #e6ecff;
+      --suave: #8b9bd6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--texto);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ---------- NAV ---------- */
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 6%;
+      background: rgba(7, 11, 42, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--borde);
+    }
+    .logo { font-weight: 800; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+    .logo i { width: 14px; height: 14px; border-radius: 50%; background: var(--cian); box-shadow: 0 0 12px var(--cian); }
+    nav ul { display: flex; gap: 26px; list-style: none; }
+    nav a { color: var(--suave); text-decoration: none; font-size: 0.95rem; transition: color .2s; }
+    nav a:hover { color: var(--cian); }
+    .btn-nav {
+      border: 1px solid var(--cian); color: var(--cian);
+      padding: 8px 18px; border-radius: 6px; text-decoration: none; font-size: 0.9rem;
+    }
+    .btn-nav:hover { background: var(--cian); color: var(--bg); }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      position: relative;
+      min-height: 88vh;
+      display: flex; align-items: center;
+      padding: 60px 6%;
+      background:
+        radial-gradient(circle at 78% 40%, rgba(34, 211, 238, 0.28), transparent 38%),
+        radial-gradient(circle at 85% 70%, rgba(59, 130, 246, 0.25), transparent 45%),
+        linear-gradient(180deg, var(--bg2), var(--bg));
+    }
+    .hero-texto { max-width: 560px; position: relative; z-index: 2; }
+    .etiqueta { color: var(--cian); letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 14px; }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.15; margin-bottom: 18px; }
+    .hero h1 span { color: var(--cian); text-shadow: 0 0 20px rgba(34, 211, 238, .6); }
+    .hero p { color: var(--suave); margin-bottom: 28px; font-size: 1.05rem; }
+    .btn {
+      display: inline-block; padding: 12px 28px; border-radius: 6px;
+      background: var(--azul); color: #fff; text-decoration: none; font-weight: 600;
+      box-shadow: 0 0 20px rgba(59, 130, 246, .5); transition: transform .2s;
+    }
+    .btn:hover { transform: translateY(-3px); }
+    .btn.sec { background: transparent; border: 1px solid var(--cian); color: var(--cian); box-shadow: none; margin-left: 10px; }
+
+    /* esfera decorativa */
+    .orbe {
+      position: absolute; right: 8%; top: 50%;
+      width: 340px; height: 340px; transform: translateY(-50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #67e8f9, #2563eb 45%, #0b1140 75%);
+      box-shadow: 0 0 80px rgba(34, 211, 238, .45), inset 0 0 60px rgba(0, 0, 0, .5);
+      animation: flotar 6s ease-in-out infinite;
+    }
+    .orbe::after {
+      content: ""; position: absolute; inset: -28px; border-radius: 50%;
+      border: 1px dashed rgba(34, 211, 238, .5);
+      animation: girar 18s linear infinite;
+    }
+    @keyframes flotar { 50% { transform: translateY(-56%); } }
+    @keyframes girar { to { transform: rotate(360deg); } }
+
+    /* ---------- SECCIONES ---------- */
+    section { padding: 80px 6%; }
+    .titulo { margin-bottom: 40px; }
+    .titulo small { color: var(--cian); letter-spacing: 3px; font-size: 0.75rem; display: block; margin-bottom: 8px; }
+    .titulo h2 { font-size: 2rem; }
+    .titulo h2::after {
+      content: ""; display: block; width: 60px; height: 3px; margin-top: 10px;
+      background: var(--cian); box-shadow: 0 0 10px var(--cian);
+    }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+    .tarjeta {
+      background: linear-gradient(160deg, var(--card), var(--bg2));
+      border: 1px solid var(--borde); border-radius: 14px;
+      padding: 26px; transition: transform .25s, box-shadow .25s, border-color .25s;
+    }
+    .tarjeta:hover { transform: translateY(-6px); border-color: var(--cian); box-shadow: 0 0 28px rgba(34, 211, 238, .25); }
+    .tarjeta h3 { margin-bottom: 6px; }
+    .icono {
+      width: 52px; height: 52px; border-radius: 12px; margin-bottom: 16px;
+      display: grid; place-items: center; font-size: 1.5rem; font-weight: 800;
+      background: rgba(34, 211, 238, .12); border: 1px solid var(--cian); color: var(--cian);
+    }
+    .nivel { color: var(--suave); font-size: 0.85rem; margin-bottom: 10px; }
+    .barra { height: 6px; background: #16206b; border-radius: 6px; overflow: hidden; }
+    .barra div { height: 100%; background: linear-gradient(90deg, var(--azul), var(--cian)); border-radius: 6px; }
+
+    .cert .entidad { color: var(--cian); font-size: 0.85rem; margin-bottom: 4px; }
+    .cert .fecha { color: var(--suave); font-size: 0.85rem; margin-bottom: 16px; }
+    .cert a { color: var(--cian); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+    .cert a:hover { text-decoration: underline; }
+
+    .sobre { max-width: 760px; color: var(--suave); font-size: 1.05rem; }
+
+    /* ---------- CONTACTO ---------- */
+    #contacto { text-align: center; background: linear-gradient(180deg, var(--bg), var(--bg2)); }
+    #contacto .titulo h2::after { margin-left: auto; margin-right: auto; }
+    #contacto p { color: var(--suave); margin-bottom: 26px; }
+    .correo { font-size: 1.1rem; }
+
+    footer { text-align: center; padding: 24px; color: var(--suave); font-size: .85rem; border-top: 1px solid var(--borde); }
+
+    /* ---------- ANIMACIONES ---------- */
+    #fondo { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+    .hero, section, footer { position: relative; z-index: 1; }
+    .hero {
+      background:
+        radial-gradient(circle at 78% 40%, rgba(34, 211, 238, 0.28), transparent 38%),
+        radial-gradient(circle at 85% 70%, rgba(59, 130, 246, 0.25), transparent 45%);
+    }
+    #contacto { background: transparent; }
+
+    #progreso {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0; z-index: 20;
+      background: linear-gradient(90deg, var(--azul), var(--cian));
+      box-shadow: 0 0 10px var(--cian);
+    }
+
+    /* entrada de la portada */
+    .hero-texto > * { opacity: 0; animation: subir .9s ease forwards; }
+    .hero-texto > :nth-child(1) { animation-delay: .1s; }
+    .hero-texto > :nth-child(2) { animation-delay: .3s; }
+    .hero-texto > :nth-child(3) { animation-delay: .5s; }
+    .hero-texto > :nth-child(4) { animation-delay: .7s; }
+    .hero-texto > :nth-child(5) { animation-delay: .9s; }
+    .hero-texto > :nth-child(6) { animation-delay: 1.05s; }
+    @keyframes subir { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; } }
+
+    /* nombre con degradado animado */
+    .hero h1 span {
+      background: linear-gradient(90deg, #22d3ee, #60a5fa, #a78bfa, #22d3ee);
+      background-size: 250% 100%;
+      -webkit-background-clip: text; background-clip: text;
+      color: transparent; text-shadow: none;
+      filter: drop-shadow(0 0 14px rgba(34, 211, 238, .45));
+      animation: brillo 5s linear infinite;
+    }
+    @keyframes brillo { to { background-position: 250% 0; } }
+
+    /* texto que se escribe solo */
+    .typing { font-family: Consolas, monospace; font-size: 1.25rem; color: var(--cian); min-height: 2rem; margin-bottom: 14px; }
+    .cursor { margin-left: 3px; animation: parpadeo 1s steps(1) infinite; }
+    @keyframes parpadeo { 50% { opacity: 0; } }
+
+    /* esfera con más anillos */
+    .orbe::before {
+      content: ""; position: absolute; inset: -60px; border-radius: 50%;
+      border: 2px solid transparent;
+      border-top-color: var(--cian); border-bottom-color: var(--azul);
+      opacity: .7; animation: girar 9s linear infinite reverse;
+    }
+
+    /* menú y logo */
+    nav ul a { position: relative; }
+    nav ul a::after {
+      content: ""; position: absolute; left: 0; bottom: -4px;
+      width: 0; height: 2px; background: var(--cian); transition: width .3s;
+    }
+    nav ul a:hover::after { width: 100%; }
+    .logo i { animation: latido 2s ease-in-out infinite; }
+    @keyframes latido { 50% { transform: scale(1.5); box-shadow: 0 0 22px var(--cian); } }
+
+    /* iconos y botones */
+    .icono { animation: pulso 3s ease-in-out infinite; transition: transform .3s; }
+    @keyframes pulso { 50% { box-shadow: 0 0 18px rgba(34, 211, 238, .55); } }
+    .tarjeta:hover .icono { transform: rotate(10deg) scale(1.12); }
+    .btn { position: relative; overflow: hidden; }
+    .btn::after {
+      content: ""; position: absolute; top: 0; left: -120%; width: 60%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, .35), transparent);
+      transform: skewX(-20deg); animation: destello 3.5s ease-in-out infinite;
+    }
+    @keyframes destello { 0%, 60% { left: -120%; } 100% { left: 140%; } }
+
+    /* barras de nivel */
+    .barra div { transition: width 1.4s cubic-bezier(.2, .8, .2, 1); }
+
+    /* aparecer al hacer scroll */
+    .js .reveal { opacity: 0; transform: translateY(40px); transition: opacity .8s ease, transform .8s ease; }
+    .js .reveal.visible { opacity: 1; transform: none; }
+    .js .titulo.reveal h2::after { width: 0; }
+    .js .titulo.reveal.visible h2::after { width: 60px; transition: width .8s .3s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+      .hero-texto > * { opacity: 1; }
+    }
+
+    @media (max-width: 760px) {
+      nav ul { display: none; }
+      .orbe { width: 200px; height: 200px; right: -40px; opacity: .55; }
+    }
+  </style>
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <canvas id="fondo"></canvas>
+  <div id="progreso"></div>
+
+  <nav>
+    <div class="logo"><i></i> Joel Menendez</div>
+    <ul>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#lenguajes">Lenguajes</a></li>
+      <li><a href="#certificados">Certificados</a></li>
+    </ul>
+    <a class="btn-nav" href="#contacto">Contacto</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-texto">
+      <div class="etiqueta">PORTAFOLIO PERSONAL</div>
+      <h1>Hola, soy <span>Joel Menendez</span><br>Estudiante de Ingeniería en Ciencias de la Computación</h1>
+      <div class="typing">&gt; Soy <span id="escribir"></span><span class="cursor">▌</span></div>
+      <p>Me apasiona la tecnología y aprender cosas nuevas. Aquí encontrarás los lenguajes que domino y los certificados que he obtenido.</p>
+      <a class="btn" href="#lenguajes">Ver lenguajes</a>
+      <a class="btn sec" href="#certificados">Certificados</a>
+    </div>
+    <div class="orbe"></div>
+  </header>
+
+  <section id="sobre-mi">
+    <div class="titulo"><small>QUIÉN SOY</small><h2>Sobre mí</h2></div>
+    <p class="sobre">
+      Desarrollador e ingeniero de software en formación con sólida base en frontend
+      (HTML, CSS, JavaScript) y backend con Python. Cuento con certificación oficial de
+      Cisco Networking Academy en Cisco Packet Tracer y Ciberseguridad, lo que respalda
+      mis conocimientos en arquitectura de redes, simulación de entornos conectados y
+      protección de datos. Apasionado por resolver problemas técnicos complejos, crear
+      interfaces intuitivas y seguir fortaleciendo mis habilidades en desarrollo web y redes.
+    </p>
+  </section>
+
+  <section id="lenguajes">
+    <div class="titulo"><small>LO QUE DOMINO</small><h2>Lenguajes</h2></div>
+    <div class="grid">
+
+      <div class="tarjeta">
+        <div class="icono">H</div>
+        <h3>HTML</h3>
+        <div class="nivel">Nivel: Intermedio</div>
+        <div class="barra"><div style="width: 70%"></div></div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="icono">C</div>
+        <h3>CSS</h3>
+        <div class="nivel">Nivel: Intermedio</div>
+        <div class="barra"><div style="width: 70%"></div></div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="icono">JS</div>
+        <h3>JavaScript</h3>
+        <div class="nivel">Nivel: Básico</div>
+        <div class="barra"><div style="width: 40%"></div></div>
+      </div>
+
+      <div class="tarjeta">
+        <div class="icono">Py</div>
+        <h3>Python</h3>
+        <div class="nivel">Nivel: Intermedio</div>
+        <div class="barra"><div style="width: 70%"></div></div>
+      </div>
+
+      <!-- Para agregar otro lenguaje: copia una tarjeta completa y cambia los datos -->
+    </div>
+  </section>
+
+  <section id="certificados">
+    <div class="titulo"><small>MIS LOGROS</small><h2>Certificados</h2></div>
+    <div class="grid">
+
+      <div class="tarjeta cert">
+        <div class="icono">★</div>
+        <h3>Introducción a Cisco Packet Tracer</h3>
+        <div class="entidad">Cisco Networking Academy · UCSG</div>
+        <div class="fecha">10 de junio de 2026</div>
+        <a href="certificado-packet-tracer.pdf" target="_blank">Ver certificado →</a>
+      </div>
+
+      <div class="tarjeta cert">
+        <div class="icono">★</div>
+        <h3>Exploración de redes con Cisco Packet Tracer</h3>
+        <div class="entidad">Cisco Networking Academy · UCSG</div>
+        <div class="fecha">11 de junio de 2026</div>
+        <a href="certificado-exploracion-redes.pdf" target="_blank">Ver certificado →</a>
+      </div>
+
+      <div class="tarjeta cert">
+        <div class="icono">★</div>
+        <h3>Introducción a Ciberseguridad</h3>
+        <div class="entidad">Cisco Networking Academy · UCSG</div>
+        <div class="fecha">17 de agosto de 2026</div>
+        <a href="certificado-ciberseguridad.pdf" target="_blank">Ver certificado →</a>
+      </div>
+
+      <!-- Para agregar otro certificado: copia una tarjeta completa y cambia los datos -->
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="titulo"><small>HABLEMOS</small><h2>Contacto</h2></div>
+    <p>¿Quieres escribirme? Mi correo es:</p>
+    <a class="btn correo" href="mailto:joelmenendez05@gmail.com">joelmenendez05@gmail.com</a>
+  </section>
+
+  <footer>© 2026 Joel Menendez · Hecho con HTML y CSS</footer>
+
+<script>
+(function () {
+  var reducir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* barra de progreso al hacer scroll */
+  var prog = document.getElementById('progreso');
+  function actualizar() {
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    prog.style.width = (h > 0 ? (window.scrollY / h) * 100 : 0) + '%';
+  }
+  window.addEventListener('scroll', actualizar);
+  actualizar();
+
+  /* texto que se escribe solo */
+  var frases = ['desarrollador web', 'futuro ingeniero de software', 'apasionado por las redes', 'entusiasta de la ciberseguridad'];
+  var cont = document.getElementById('escribir');
+  var f = 0, c = 0, borrando = false;
+  function escribir() {
+    var txt = frases[f];
+    c += borrando ? -1 : 1;
+    cont.textContent = txt.substring(0, c);
+    var t = borrando ? 40 : 80;
+    if (!borrando && c === txt.length) { borrando = true; t = 1500; }
+    else if (borrando && c === 0) { borrando = false; f = (f + 1) % frases.length; t = 400; }
+    setTimeout(escribir, t);
+  }
+  if (reducir) { cont.textContent = frases[0]; } else { escribir(); }
+
+  /* aparecer al hacer scroll + animar barras */
+  var barras = document.querySelectorAll('.barra div');
+  barras.forEach(function (b) {
+    b.dataset.w = b.style.width;
+    if (!reducir) b.style.width = '0';
+  });
+  if (!reducir && 'IntersectionObserver' in window) {
+    var items = document.querySelectorAll('.titulo, .tarjeta, .sobre, #contacto p, #contacto .btn');
+    items.forEach(function (el) {
+      el.classList.add('reveal');
+      var idx = Array.prototype.indexOf.call(el.parentNode.children, el);
+      el.style.transitionDelay = (idx % 4) * 0.12 + 's';
+    });
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var el = e.target;
+        el.classList.add('visible');
+        var b = el.querySelector('.barra div');
+        if (b) b.style.width = b.dataset.w;
+        io.unobserve(el);
+        setTimeout(function () {
+          el.classList.remove('reveal', 'visible');
+          el.style.transitionDelay = '';
+        }, 1500);
+      });
+    }, { threshold: 0.15 });
+    items.forEach(function (el) { io.observe(el); });
+  } else {
+    barras.forEach(function (b) { b.style.width = b.dataset.w; });
+  }
+
+  /* fondo de partículas conectadas */
+  var canvas = document.getElementById('fondo');
+  if (canvas && !reducir) {
+    var ctx = canvas.getContext('2d');
+    var W, H, pts = [], mouse = { x: -999, y: -999 };
+    function medir() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    medir();
+    window.addEventListener('resize', medir);
+    window.addEventListener('mousemove', function (e) { mouse.x = e.clientX; mouse.y = e.clientY; });
+    var n = window.innerWidth < 760 ? 35 : 75;
+    for (var i = 0; i < n; i++) {
+      pts.push({
+        x: Math.random() * W, y: Math.random() * H,
+        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 1.6 + 0.6
+      });
+    }
+    function dibujar() {
+      ctx.clearRect(0, 0, W, H);
+      for (var i = 0; i < pts.length; i++) {
+        var p = pts[i];
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y < 0 || p.y > H) p.vy *= -1;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 6.283);
+        ctx.fillStyle = 'rgba(34, 211, 238, 0.8)';
+        ctx.fill();
+        for (var j = i + 1; j < pts.length; j++) {
+          var q = pts[j], dx = p.x - q.x, dy = p.y - q.y, d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 120) {
+            ctx.strokeStyle = 'rgba(59, 130, 246, ' + (1 - d / 120) * 0.35 + ')';
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y); ctx.stroke();
+          }
+        }
+        var mx = p.x - mouse.x, my = p.y - mouse.y, md = Math.sqrt(mx * mx + my * my);
+        if (md < 140) {
+          ctx.strokeStyle = 'rgba(34, 211, 238, ' + (1 - md / 140) * 0.6 + ')';
+          ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+        }
+      }
+      requestAnimationFrame(dibujar);
+    }
+    dibujar();
+  }
+})();
+</script>
+</body>
+</html>
